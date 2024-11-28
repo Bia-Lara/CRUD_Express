@@ -1,22 +1,19 @@
 import express from "express";
+import AlunoController from "../controller/alunoController.js";
 
-// Vamos atender as rotas usando o código escrito lá no controler:
-import LivroController from "../controllers/livroController.js";
-
-// Criando objeto Router, que gerencia as rotas de forma centralizada:
 const routes = express.Router();
 
 // Tratamento das rotas:
 
-routes.get("/livros", LivroController.listarLivros);
+routes.get("/alunos", AlunoController.listarAlunos);
 
-routes.get("/livros/:id", LivroController.listarLivroPorId);
+// routes.get("/alunos/:id", AlunoController.listarAlunoPorId);
 
-routes.post("/livros", LivroController.cadastrarLivro);
+// routes.post("/alunos", AlunoController.cadastrarAluno);
 
-routes.put("/livros/:id", LivroController.atualizarLivro);
+// routes.put("/alunos/:id", AlunoController.atualizarAluno);
 
-routes.delete("/livros/:id", LivroController.excluirLivro);
+// routes.delete("/alunos/:id", AlunoController.excluirAluno);
 
 
 export default routes;
