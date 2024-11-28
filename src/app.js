@@ -1,19 +1,17 @@
 import express from "express";
+import conectaNaDatabase from "./config/dbConnect.js";
 
 const app = express();
+const conexao = await conectaNaDatabase();
 app.use( express.json() );
 
-const livros = [
+conexao.on("error", (erro) => {
+    console.error("Erro de conexão!", erro);
+});
 
-    {
-        id: 1,
-        titulo: "2001: Uma Odisséia no Espaço"
-    },
-    {
-        id: 2,
-        titulo: "O Hobbit"
-    }
-]
+conexao.once("open", () => {
+    console.log("Conexão com o banco feita com sucesso!");
+});
 
 app.get("/", (req, res) => {
 
