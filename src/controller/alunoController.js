@@ -1,6 +1,7 @@
 import aluno from "../models/Aluno.js";
 
 class AlunoController{
+
     static async listarAlunos (req, res) {
 
         try {
@@ -19,7 +20,7 @@ class AlunoController{
         try {
 
             const novoAluno = await aluno.create(req.body);
-            res.status(201).json( { message: "Criado com sucesso.", aluno: novoAluno } );
+            res.status(201).json( { message: "Aluno criado com sucesso.", aluno: novoAluno } );
 
         } catch (erro) {
 
@@ -34,6 +35,11 @@ class AlunoController{
         try {
             const id = req.params.id;
             const alunoEncontrado = await aluno.findById(id);
+
+            if(!alunoEncontrado){
+                return res.status(404).json({message: `Aluno não encontrado!`})
+            }
+
             res.status(200).json(alunoEncontrado);
 
         } catch (erro) {
@@ -47,7 +53,12 @@ class AlunoController{
         try {
 
             const id = req.params.id;
-            await aluno.findByIdAndUpdate(id, req.body);
+            const alunoEncontrado = await aluno.findByIdAndUpdate(id, req.body);
+
+            if(!alunoEncontrado){
+                return res.status(404).json({message: `Aluno não encontrado!`})
+            }
+
             res.status(200).json( { message: "Aluno atualizado!" } );
 
         } catch (erro) {
@@ -61,7 +72,13 @@ class AlunoController{
         try {
 
             const id = req.params.id;
-            await aluno.findByIdAndDelete(id);
+            const alunoEncontrado = await aluno.findByIdAndDelete(id);
+
+            if(!alunoEncontrado){
+                return res.status(404).json({message: `Aluno não encontrado!`})
+            }
+
+
             res.status(200).json( { message: "Aluno removido!" } );
 
         } catch (erro) {

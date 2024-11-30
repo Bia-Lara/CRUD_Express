@@ -1,9 +1,13 @@
 import express from "express";
+import dotenv from "dotenv";
 import conectaNaDatabase from "./config/dbConnect.js";
 import routes from "./routes/index.js";
 
+dotenv.config();
+
 const app = express();
 const conexao = await conectaNaDatabase();
+
 app.use( express.json() );
 
 conexao.on("error", (erro) => {
@@ -15,11 +19,5 @@ conexao.once("open", () => {
 });
 
 routes(app);
-
-app.get("/", (req, res) => {
-
-    res.status(200).send("Hello World!");
-
-} );
 
 export default app;

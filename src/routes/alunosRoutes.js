@@ -1,16 +1,17 @@
 import express from "express";
 import AlunoController from "../controller/alunoController.js";
+import authenticateJWT from "../middleware/authenticateJWT.js";
 
-const routes = express.Router();
+const router = express.Router();
 
-routes.get("/alunos", AlunoController.listarAlunos);
-routes.get("/alunos/media", AlunoController.listarMediaAlunos);
-routes.get("/alunos/aprovados", AlunoController.listarStatusAlunos);
-routes.post("/alunos", AlunoController.cadastrarAluno);
-routes.get("/alunos/:id", AlunoController.listarAlunoPorId);
-routes.put("/alunos/:id", AlunoController.atualizarAluno);
-routes.delete("/alunos/:id", AlunoController.excluirAluno);
+router.get("/alunos", authenticateJWT, AlunoController.listarAlunos);
+router.get("/alunos/media", authenticateJWT, AlunoController.listarMediaAlunos);
+router.get("/alunos/aprovados", authenticateJWT, AlunoController.listarStatusAlunos);
+router.post("/alunos", authenticateJWT, AlunoController.cadastrarAluno);
+router.get("/alunos/:id", authenticateJWT, AlunoController.listarAlunoPorId);
+router.put("/alunos/:id", authenticateJWT, AlunoController.atualizarAluno);
+router.delete("/alunos/:id", authenticateJWT, AlunoController.excluirAluno);
 
 
 
-export default routes;
+export default router;
